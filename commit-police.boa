@@ -1,0 +1,27 @@
+#Objective: check and warn against developers who commit code with empty log, or simple one word log like "fixed". Some code below can help build this up quickly.
+
+# Create a collection of commit messages organized by project and commit date.
+p: Project = input;
+#commits: output collection [string] of string;
+project_empty_logs : output sum[string] of int;
+project_empty_logs[p.project_url] << 0;
+filtered := function(str: string) : bool {
+    if(str == "" || str == "fixed" || str == "fix") #match(`\\*\\*\\* empty log message \\*\\*\\*`, str)
+        return true;
+    else if(match(`This commit was manufactured by cvs2svn$`, str))
+return true;
+return false;
+};
+
+entire_log := "";
+
+visit(p, visitor {
+before n: Revision -> {
+    str := n.log;
+    if(n.log == "" || n.log == "fixed" || n.log == "fix" || match(`This commit was manufactured by cvs2svn$`, n.log))
+        project_empty_logs[p.project_url] << 1;
+        #entire_log = format("%s\n%d:%s", entire_log, yearof(n.commit_date), n.log);
+    }
+});
+
+#commits[p.id] << project_empty_logs;
