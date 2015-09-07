@@ -1,7 +1,16 @@
 {
-  "name": "commit police",
-  "version": "0.0.1",
-  "author": "Nitin Mukesh Tiwari",
+  "name": "commit-police",
+  "productName": "Commit Police",
+  "version": "0.1.0",
+  "author": "Nitin Mukesh Tiwari <nmtiwari@iastate.edu>",
   "description": "Checks and identifies developers writing empty or one word commit logs, e.g. fixed.",
-  "main": "main.html"
+  "main": "main.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/candoia/commit-police"
+  },
+  "icon": {
+	"type": "fa",
+	"name": "pi-chart"
+  }
 }
